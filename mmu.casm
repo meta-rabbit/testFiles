@@ -4,10 +4,14 @@
 start:
 
     MOV #0x40000000 $B ;holds starting
+
     MOV #0x20000200 $C ;holds thread
     MEMW [4] :thread $C ;added
-    MOV #0x40000000 $S ;added
+    MOV #0x42000000 $S ;added
 
+    MOV #0x20000200 $C ;holds thread
+    MEMW [4] :thread1 $C ;added
+    MOV #0x40002000 $S ;added
 memFun:
     MOV #0x20000000 $A ;holds permisions
     MEMW [4] $B $A ;writes permision to starting
@@ -22,7 +26,14 @@ memFun:
     JMP <> :memFun
 
     thread:
-        MOV #0x40000000 $S
+        MOV #42000000 $S
     part:
-        PUSH #0x00
+    PUSH #0x00
         JMP <> :part
+    end:
+    thread1:
+        MOV #40002000 $S
+    part:
+    PUSH #0x00
+        JMP <> :part
+    end:
